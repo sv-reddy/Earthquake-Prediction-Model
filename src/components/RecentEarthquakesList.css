@@ -1,0 +1,304 @@
+.recent-earthquakes-list {
+  max-height: 600px;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
+.recent-earthquakes-list.full-width-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 1rem;
+  max-height: none;
+  overflow-y: visible;
+}
+
+@media (max-width: 1024px) {
+  .recent-earthquakes-list.full-width-grid {
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .recent-earthquakes-list.full-width-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.no-earthquakes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  color: var(--text-secondary);
+}
+
+.no-data-icon {
+  width: 2rem;
+  height: 2rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.no-data-subtitle {
+  font-size: 0.85rem;
+  color: var(--text-tertiary);
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+.earthquake-item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 12px;
+  margin-bottom: 0.75rem;
+  border: 1px solid rgba(139, 69, 19, 0.1);
+  transition: all 0.3s ease;
+}
+
+.earthquake-item:hover {
+  background: rgba(255, 255, 255, 0.8);
+  border-color: rgba(139, 69, 19, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(139, 69, 19, 0.15);
+}
+
+.earthquake-magnitude {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.magnitude-badge {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  border: 3px solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.9);
+  position: relative;
+}
+
+.magnitude-badge.low {
+  background: linear-gradient(135deg, rgba(34, 139, 34, 0.1), rgba(218, 165, 32, 0.1));
+}
+
+.magnitude-badge.medium {
+  background: linear-gradient(135deg, rgba(255, 165, 0, 0.1), rgba(210, 105, 30, 0.1));
+}
+
+.magnitude-badge.high {
+  background: linear-gradient(135deg, rgba(220, 20, 60, 0.1), rgba(139, 0, 0, 0.1));
+}
+
+.magnitude-badge.critical {
+  background: linear-gradient(135deg, rgba(139, 0, 0, 0.2), rgba(75, 0, 130, 0.1));
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.magnitude-value {
+  font-size: 1.2rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.magnitude-level {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-align: center;
+}
+
+.earthquake-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 0; /* Allow text truncation */
+}
+
+.earthquake-location {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: var(--earth-brown-dark);
+}
+
+.location-icon {
+  width: 1rem;
+  height: 1rem;
+  color: var(--earth-brown);
+  flex-shrink: 0;
+}
+
+.location-text {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tsunami-warning {
+  background: rgba(255, 69, 0, 0.1);
+  color: #FF4500;
+  padding: 0.2rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  border: 1px solid #FF4500;
+  flex-shrink: 0;
+}
+
+.seismic-zone-badge {
+  background: rgba(139, 69, 19, 0.1);
+  color: var(--earth-brown);
+  padding: 0.2rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  border: 1px solid var(--earth-brown);
+  flex-shrink: 0;
+}
+
+.earthquake-info {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+}
+
+.info-icon {
+  width: 0.8rem;
+  height: 0.8rem;
+  opacity: 0.7;
+}
+
+.earthquake-actions {
+  display: flex;
+  align-items: center;
+}
+
+.view-details-btn {
+  padding: 0.5rem 1rem;
+  background: var(--earth-brown);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.view-details-btn:hover {
+  background: var(--earth-brown-light);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(139, 69, 19, 0.3);
+}
+
+.list-footer {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(139, 69, 19, 0.2);
+  text-align: center;
+}
+
+.data-source {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin: 0 0 0.5rem 0;
+}
+
+.last-updated {
+  font-size: 0.7rem;
+  color: var(--text-light);
+  margin: 0;
+  font-style: italic;
+}
+
+/* Custom scrollbar */
+.recent-earthquakes-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.recent-earthquakes-list::-webkit-scrollbar-track {
+  background: rgba(139, 69, 19, 0.1);
+  border-radius: 3px;
+}
+
+.recent-earthquakes-list::-webkit-scrollbar-thumb {
+  background: rgba(139, 69, 19, 0.3);
+  border-radius: 3px;
+}
+
+.recent-earthquakes-list::-webkit-scrollbar-thumb:hover {
+  background: rgba(139, 69, 19, 0.5);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .earthquake-item {
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    gap: 0.75rem;
+  }
+
+  .earthquake-actions {
+    grid-column: 1 / -1;
+    justify-content: center;
+  }
+
+  .earthquake-info {
+    gap: 0.75rem;
+  }
+
+  .magnitude-badge {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  .magnitude-value {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .earthquake-item {
+    padding: 0.75rem;
+  }
+
+  .earthquake-info {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .info-item {
+    font-size: 0.75rem;
+  }
+
+  .view-details-btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.75rem;
+  }
+}
