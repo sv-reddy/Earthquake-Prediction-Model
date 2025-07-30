@@ -218,23 +218,12 @@ const HomePage = ({ location }) => {
             <p className="risk-description">
               {getRiskDescription(earthquakeStats?.riskScore || 0)}
             </p>
-            <div className="risk-metrics">
-              <div className="metric">
-                <span className="metric-label">Risk Score</span>
-                <span 
-                  className="metric-value"
-                  style={{ color: getRiskColor(earthquakeStats?.riskScore || 0) }}
-                >
-                  {earthquakeStats?.riskScore?.toFixed(1) || '0.0'}/100
-                </span>
-              </div>
-              <div className="metric">
+             <div className="metric">
                 <span className="metric-label">30-Day Probability</span>
                 <span className="metric-value">
                   {formatProbability(earthquakeStats?.riskScore || 0)}
                 </span>
               </div>
-            </div>
           </div>
         </div>
       </div>

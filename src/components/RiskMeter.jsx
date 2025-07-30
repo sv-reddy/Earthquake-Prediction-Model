@@ -13,8 +13,8 @@ const RiskMeter = ({ score, size = 150 }) => {
   const getRiskLevel = (score) => {
     if (score < 20) return { level: 'Low', color: '#228B22' };
     if (score < 40) return { level: 'Moderate', color: '#DAA520' };
-    if (score < 60) return { level: 'Elevated', color: '#FFA500' };
-    if (score < 80) return { level: 'High', color: '#D2691E' };
+    if (score < 60) return { level: 'High', color: '#FFA500' };
+    if (score < 80) return { level: 'very high', color: '#D2691E' };
     return { level: 'Critical', color: '#DC143C' };
   };
 
@@ -82,7 +82,7 @@ const RiskMeter = ({ score, size = 150 }) => {
         <div className="risk-level" style={{ color: riskInfo.color }}>
           {riskInfo.level}
         </div>
-        <div className="risk-label">Risk Score</div>
+        <div className="risk-label">24-H probability of occurence </div>
       </div>
     </div>
   );
