@@ -1,24 +1,44 @@
 import React from 'react';
 import './RiskMeter.css';
 
-const RiskMeter = ({ score, size = 150 }) => {
+const RiskMeter = ({ 
+  probability24h = 0, 
+  predictedMagnitude = 0, 
+  confidence = 0,
+  size = 150 
+}) => {
+  // Check if data is available
+  const isDataAvailable = typeof probability24h === 'number' && typeof predictedMagnitude === 'number';
+  const hasNoData = probability24h === "No data available" || predictedMagnitude === "No data available";
+  
   const radius = (size - 20) / 2;
   const circumference = 2 * Math.PI * radius;
   const strokeDasharray = circumference;
   
-  // Convert score (0-100) to percentage for the circle
-  const percentage = Math.min(Math.max(score, 0), 100);
+  // Convert probability (0-100) to percentage for the circle
+  const percentage = isDataAvailable ? Math.min(Math.max(probability24h, 0), 100) : 0;
   const strokeDashoffset = circumference - (percentage / 100) * circumference;
 
-  const getRiskLevel = (score) => {
-    if (score < 20) return { level: 'Low', color: '#228B22' };
-    if (score < 40) return { level: 'Moderate', color: '#DAA520' };
-    if (score < 60) return { level: 'High', color: '#FFA500' };
-    if (score < 80) return { level: 'very high', color: '#D2691E' };
+  const getRiskLevel = (probability) => {
+    if (!isDataAvailable) return { level: 'No Data', color: '#6B7280' };
+    if (probability < 5) return { level: 'Very Low', color: '#228B22' };
+    if (probability < 15) return { level: 'Low', color: '#32CD32' };
+    if (probability < 30) return { level: 'Moderate', color: '#DAA520' };
+    if (probability < 50) return { level: 'High', color: '#FFA500' };
+    if (probability < 70) return { level: 'Very High', color: '#D2691E' };
     return { level: 'Critical', color: '#DC143C' };
   };
 
-  const riskInfo = getRiskLevel(score);
+  const getMagnitudeColor = (magnitude) => {
+    if (!isDataAvailable) return '#6B7280';
+    if (magnitude < 3.0) return '#228B22';
+    if (magnitude < 4.0) return '#DAA520';
+    if (magnitude < 5.0) return '#FFA500';
+    if (magnitude < 6.0) return '#D2691E';
+    return '#DC143C';
+  };
+
+  const riskInfo = getRiskLevel(isDataAvailable ? probability24h : 0);
 
   return (
     <div className="risk-meter" style={{ width: size, height: size }}>
@@ -45,17 +65,16 @@ const RiskMeter = ({ score, size = 150 }) => {
           cy={size / 2}
           r={radius}
           fill="none"
-          stroke={riskInfo.color}
+          stroke={isDataAvailable ? riskInfo.color : '#E5E7EB'}
           strokeWidth="8"
-          strokeLinecap="round"
           strokeDasharray={strokeDasharray}
           strokeDashoffset={strokeDashoffset}
           className="risk-meter-progress"
           transform={`rotate(-90 ${size / 2} ${size / 2})`}
         />
         
-        {/* Risk level markers */}
-        {[0, 20, 40, 60, 80, 100].map((value, index) => {
+        {/* Risk level markers - only show when data is available */}
+        {isDataAvailable && [0, 10, 25, 50, 75, 100].map((value, index) => {
           const angle = (value / 100) * 360 - 90;
           const markerRadius = radius + 15;
           const x = size / 2 + markerRadius * Math.cos((angle * Math.PI) / 180);
@@ -76,13 +95,38 @@ const RiskMeter = ({ score, size = 150 }) => {
       
       {/* Center content */}
       <div className="risk-meter-content">
-        <div className="risk-score" style={{ color: riskInfo.color }}>
-          {score.toFixed(1)}
-        </div>
-        <div className="risk-level" style={{ color: riskInfo.color }}>
-          {riskInfo.level}
-        </div>
-        <div className="risk-label">24-H probability of occurence </div>
+        {hasNoData ? (
+          <div className="no-data-message">
+            <div className="no-data-text" style={{ color: '#6B7280' }}>
+              No Data Available
+            </div>
+            <div className="no-data-subtitle" style={{ color: '#9CA3AF', fontSize: '0.8em' }}>
+              Insufficient earthquake data
+            </div>
+          </div>
+        ) : (
+          <>
+            <div className="probability-score" style={{ color: riskInfo.color }}>
+              {isDataAvailable ? probability24h.toFixed(1) : '0.0'}%
+            </div>
+            <div className="probability-label">24h Probability</div>
+            
+            <div className="magnitude-container">
+              <div className="predicted-magnitude" style={{ color: getMagnitudeColor(predictedMagnitude) }}>
+                M{isDataAvailable ? predictedMagnitude.toFixed(1) : '0.0'}
+              </div>
+              <div className="magnitude-label">Predicted</div>
+            </div>
+
+            {isDataAvailable && confidence > 0 && (
+              <div className="confidence-container">
+                <div className="confidence-score">
+                  {confidence.toFixed(0)}% confidence
+                </div>
+              </div>
+            )}
+          </>
+        )}
       </div>
     </div>
   );

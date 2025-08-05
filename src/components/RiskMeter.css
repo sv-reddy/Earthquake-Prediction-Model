@@ -30,22 +30,67 @@
   transform: translate(-50%, -50%);
   text-align: center;
   pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
 }
 
-.risk-score {
-  font-size: 2.5rem;
+.probability-score {
+  font-size: 2.2rem;
   font-weight: 800;
   line-height: 1;
-  margin-bottom: 0.25rem;
   font-family: 'Arial', sans-serif;
 }
 
-.risk-level {
-  font-size: 1.1rem;
-  font-weight: 600;
-  margin-bottom: 0.25rem;
+.probability-label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #666;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
+}
+
+.magnitude-container {
+  margin: 0.1rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.1rem;
+}
+
+.predicted-magnitude {
+  font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 1;
+  font-family: 'Arial', sans-serif;
+}
+
+.magnitude-label {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.confidence-container {
+  margin: 0.1rem 0;
+}
+
+.confidence-score {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #888;
+  font-style: italic;
+}
+
+.risk-level {
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 0.1rem;
 }
 
 .risk-label {

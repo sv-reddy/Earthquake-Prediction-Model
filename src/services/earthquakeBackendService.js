@@ -203,6 +203,54 @@ class EarthquakeBackendService {
   }
 
   /**
+   * Get ML-based earthquake predictions for a location
+   */
+  async getEarthquakePredictions(latitude, longitude, options = {}) {
+    try {
+      const requestData = {
+        latitude,
+        longitude,
+        radius_km: options.radiusKm || 500,
+        days: options.days || 30,
+        min_magnitude: options.minMagnitude || 2.5
+      };
+
+      const response = await fetch(`${this.baseURL}/predictions/ml`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestData)
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      return {
+        success: true,
+        probability24h: data.probability_24h || 0,
+        predictedMagnitude: data.predicted_magnitude || 0,
+        confidence: data.confidence || 0,
+        riskLevel: data.risk_level || 'Low',
+        modelInfo: data.model_info,
+        lastUpdated: data.timestamp
+      };
+    } catch (error) {
+      console.error('Error fetching earthquake predictions:', error);
+      return {
+        success: false,
+        error: error.message,
+        probability24h: 0,
+        predictedMagnitude: 0,
+        confidence: 0,
+        riskLevel: 'Unknown'
+      };
+    }
+  }
+
+  /**
    * Check if backend API is healthy
    */
   async checkHealth() {

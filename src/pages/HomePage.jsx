@@ -10,6 +10,7 @@ const HomePage = ({ location }) => {
   const [earthquakeStats, setEarthquakeStats] = useState(null);
   const [plateInfo, setPlateInfo] = useState(null);
   const [recentEarthquakes, setRecentEarthquakes] = useState([]);
+  const [predictions, setPredictions] = useState(null);
   const [dataSourceInfo, setDataSourceInfo] = useState(null);
   const [locationContext, setLocationContext] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -75,11 +76,35 @@ const HomePage = ({ location }) => {
         }
       );
 
+      // Get ML predictions from backend
+      const predictionData = await EarthquakeBackendService.getEarthquakePredictions(
+        location.latitude,
+        location.longitude,
+        {
+          radiusKm: 500,
+          days: 30,
+          minMagnitude: 2.5
+        }
+      );
+
       // Load plate information
       const plate = await TectonicPlatesService.getPlateForLocation(
         location.latitude,
         location.longitude
       );
+
+      // Get ML predictions for the location
+      const predictionsData = await EarthquakeBackendService.getEarthquakePredictions(
+        location.latitude,
+        location.longitude,
+        {
+          radiusKm: 500,
+          days: 30,
+          minMagnitude: 2.5
+        }
+      );
+
+      setPredictions(predictionsData);
 
       // Calculate earthquake statistics from the data
       const earthquakes = recentData.data || [];
@@ -100,6 +125,7 @@ const HomePage = ({ location }) => {
       setEarthquakeStats(stats);
       setPlateInfo(plate);
       setRecentEarthquakes(earthquakes || []);
+      setPredictions(predictionData);
     } catch (err) {
       setError(err.message || 'Failed to load earthquake data. Please try again.');
       console.error('Error loading home page data:', err);
@@ -209,21 +235,67 @@ const HomePage = ({ location }) => {
         <div className="risk-overview-content">
           <div className="risk-meter-container">
             <RiskMeter 
-              score={earthquakeStats?.riskScore || 0}
+              probability24h={typeof predictions?.probability24h === 'number' ? predictions.probability24h : 0}
+              predictedMagnitude={typeof predictions?.predictedMagnitude === 'number' ? predictions.predictedMagnitude : 0}
+              confidence={typeof predictions?.confidence === 'number' ? predictions.confidence : 0}
               size={200}
             />
           </div>
           <div className="risk-details">
-            <h2>Current Risk Level</h2>
+            <h2>Advanced Earthquake Prediction Analysis</h2>
             <p className="risk-description">
-              {getRiskDescription(earthquakeStats?.riskScore || 0)}
+              {predictions?.success && typeof predictions.probability24h === 'number' ? 
+                `${predictions.probability24h.toFixed(2)}% probability of earthquake activity in next 24 hours (Confidence: ${((predictions.confidence_score || 0) * 100).toFixed(1)}%)` :
+                'Prediction data unavailable - using historical analysis'
+              }
             </p>
              <div className="metric">
-                <span className="metric-label">30-Day Probability</span>
+                <span className="metric-label">24-Hour Probability</span>
                 <span className="metric-value">
-                  {formatProbability(earthquakeStats?.riskScore || 0)}
+                  {predictions?.probability24h && typeof predictions.probability24h === 'number' ? 
+                    `${predictions.probability24h.toFixed(3)}%` : 
+                    predictions?.probability24h === "No data available" ? "No data available" : 'N/A'}
                 </span>
               </div>
+              {predictions?.success && typeof predictions.predictedMagnitude === 'number' && (
+                <div className="metric">
+                  <span className="metric-label">Predicted Magnitude</span>
+                  <span className="metric-value">
+                    M{predictions.predictedMagnitude.toFixed(2)}
+                  </span>
+                </div>
+              )}
+              {predictions?.seismological_factors && (
+                <div className="seismological-factors">
+                  <h4>Seismological Analysis Factors:</h4>
+                  <div className="factors-grid">
+                    <div className="factor">
+                      <span className="factor-label">Gutenberg-Richter Score:</span>
+                      <span className="factor-value">{predictions.seismological_factors.gutenberg_richter_score}</span>
+                    </div>
+                    <div className="factor">
+                      <span className="factor-label">Temporal Clustering:</span>
+                      <span className="factor-value">{predictions.seismological_factors.temporal_clustering}</span>
+                    </div>
+                    <div className="factor">
+                      <span className="factor-label">Spatial Clustering:</span>
+                      <span className="factor-value">{predictions.seismological_factors.spatial_clustering}</span>
+                    </div>
+                    <div className="factor">
+                      <span className="factor-label">Tectonic Stress Index:</span>
+                      <span className="factor-value">{predictions.seismological_factors.tectonic_stress_index}</span>
+                    </div>
+                    <div className="factor">
+                      <span className="factor-label">Energy Release Pattern:</span>
+                      <span className="factor-value">{predictions.seismological_factors.energy_release_pattern}</span>
+                    </div>
+                    <div className="factor">
+                      <span className="factor-label">Foreshock Pattern:</span>
+                      <span className="factor-value">{predictions.seismological_factors.foreshock_pattern}</span>
+                    </div>
+                  </div>
+                </div>
+              )}
           </div>
         </div>
       </div>
