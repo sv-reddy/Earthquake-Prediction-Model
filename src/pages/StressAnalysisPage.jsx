@@ -363,22 +363,6 @@ const StressAnalysisPage = ({ location }) => {
                   {realTimeStress.stress_score != null ? realTimeStress.stress_score.toFixed(1) : '0.0'}/100
                 </span>
               </div>
-              <div className="metric">
-                <span className="metric-label">Recent Earthquakes:</span>
-                <span className="metric-value">{realTimeStress.earthquake_count || 0}</span>
-              </div>
-            </div>
-            <div className="recommendations">
-              <h4>🔍 Current Recommendations:</h4>
-              <ul>
-                {realTimeStress.recommendations && realTimeStress.recommendations.length > 0 ? (
-                  realTimeStress.recommendations.map((rec, index) => (
-                    <li key={index}>{rec}</li>
-                  ))
-                ) : (
-                  <li>No specific recommendations at this time</li>
-                )}
-              </ul>
             </div>
           </div>
         </div>

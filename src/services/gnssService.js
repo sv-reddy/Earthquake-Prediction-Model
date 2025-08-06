@@ -1,4 +1,3 @@
-import axios from 'axios';
 import RealIndianGeologicalService from './realIndianGeologicalService.js';
 
 // Real GNSS Data Service - 100% Real Data Only

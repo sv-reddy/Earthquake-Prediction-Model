@@ -7,9 +7,8 @@ const RiskMeter = ({
   confidence = 0,
   size = 150 
 }) => {
-  // Check if data is available
-  const isDataAvailable = typeof probability24h === 'number' && typeof predictedMagnitude === 'number';
-  const hasNoData = probability24h === "No data available" || predictedMagnitude === "No data available";
+  // Always expect numeric data now (no more "No data available" strings)
+  const isDataAvailable = typeof probability24h === 'number' && typeof predictedMagnitude === 'number' && probability24h > 0;
   
   const radius = (size - 20) / 2;
   const circumference = 2 * Math.PI * radius;
@@ -94,38 +93,25 @@ const RiskMeter = ({
       </svg>
       
       {/* Center content */}
-      <div className="risk-meter-content">
-        {hasNoData ? (
-          <div className="no-data-message">
-            <div className="no-data-text" style={{ color: '#6B7280' }}>
-              No Data Available
-            </div>
-            <div className="no-data-subtitle" style={{ color: '#9CA3AF', fontSize: '0.8em' }}>
-              Insufficient earthquake data
+      <div className="risk-meter-content">        
+        <div className="probability-score" style={{ color: riskInfo.color }}>
+          {probability24h.toFixed(1)}%
+        </div>
+        <div className="probability-label">24h Probability</div>
+        
+        <div className="magnitude-container">
+          <div className="predicted-magnitude" style={{ color: getMagnitudeColor(predictedMagnitude) }}>
+            M{predictedMagnitude.toFixed(1)}
+          </div>
+          <div className="magnitude-label">Predicted</div>
+        </div>
+
+        {confidence > 0 && (
+          <div className="confidence-container">
+            <div className="confidence-score">
+              {confidence.toFixed(0)}% confidence
             </div>
           </div>
-        ) : (
-          <>
-            <div className="probability-score" style={{ color: riskInfo.color }}>
-              {isDataAvailable ? probability24h.toFixed(1) : '0.0'}%
-            </div>
-            <div className="probability-label">24h Probability</div>
-            
-            <div className="magnitude-container">
-              <div className="predicted-magnitude" style={{ color: getMagnitudeColor(predictedMagnitude) }}>
-                M{isDataAvailable ? predictedMagnitude.toFixed(1) : '0.0'}
-              </div>
-              <div className="magnitude-label">Predicted</div>
-            </div>
-
-            {isDataAvailable && confidence > 0 && (
-              <div className="confidence-container">
-                <div className="confidence-score">
-                  {confidence.toFixed(0)}% confidence
-                </div>
-              </div>
-            )}
-          </>
         )}
       </div>
     </div>

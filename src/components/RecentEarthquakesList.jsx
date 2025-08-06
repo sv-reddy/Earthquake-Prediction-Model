@@ -208,17 +208,6 @@ const RecentEarthquakesList = ({ earthquakes, userLocation, fullWidth = false })
         </div>
       ))}
 
-      <div className="list-footer">
-        <p className="data-source">
-          Data provided by <strong>USGS Earthquake Hazards Program</strong>
-          {earthquakes.some(eq => eq.properties?.indianSeismicZone) && 
-            <span> with <strong>Indian Seismology Enhancements</strong></span>
-          }
-        </p>
-        <p className="last-updated">
-          Last updated: {new Date().toLocaleTimeString()}
-        </p>
-      </div>
     </div>
   );
 };

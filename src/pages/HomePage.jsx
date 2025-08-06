@@ -76,6 +76,12 @@ const HomePage = ({ location }) => {
         }
       );
 
+      // Load plate information
+      const plate = await TectonicPlatesService.getPlateForLocation(
+        location.latitude,
+        location.longitude
+      );
+
       // Get ML predictions from backend
       const predictionData = await EarthquakeBackendService.getEarthquakePredictions(
         location.latitude,
@@ -86,25 +92,6 @@ const HomePage = ({ location }) => {
           minMagnitude: 2.5
         }
       );
-
-      // Load plate information
-      const plate = await TectonicPlatesService.getPlateForLocation(
-        location.latitude,
-        location.longitude
-      );
-
-      // Get ML predictions for the location
-      const predictionsData = await EarthquakeBackendService.getEarthquakePredictions(
-        location.latitude,
-        location.longitude,
-        {
-          radiusKm: 500,
-          days: 30,
-          minMagnitude: 2.5
-        }
-      );
-
-      setPredictions(predictionsData);
 
       // Calculate earthquake statistics from the data
       const earthquakes = recentData.data || [];
@@ -132,21 +119,6 @@ const HomePage = ({ location }) => {
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const getRiskDescription = (riskScore) => {
-    if (riskScore < 20) return 'Low risk of significant seismic activity';
-    if (riskScore < 40) return 'Moderate seismic activity expected';
-    if (riskScore < 60) return 'Elevated earthquake risk in the region';
-    if (riskScore < 80) return 'High probability of seismic events';
-    return 'Critical earthquake risk - enhanced monitoring recommended';
-  };
-
-  const getRiskColor = (riskScore) => {
-    if (riskScore < 20) return 'var(--forest-green)';
-    if (riskScore < 40) return 'var(--seismic-yellow)';
-    if (riskScore < 60) return 'var(--amber-warning)';
-    return 'var(--seismic-red)';
   };
 
   const formatProbability = (riskScore) => {
@@ -184,49 +156,10 @@ const HomePage = ({ location }) => {
 
   return (
     <div className="page-container">
-      {/* Data Source Information Panel */}
-      {dataSourceInfo && (
-        <div className="data-source-panel">
-          <div className="data-source-header">
-            <Info className="data-source-icon" />
-            <h4>Data Sources & Enhancements</h4>
-          </div>
-          <div className="data-source-content">
-            <div className="primary-source">
-              <strong>Primary:</strong> {dataSourceInfo.primarySource}
-            </div>
-            {dataSourceInfo.secondarySource && (
-              <div className="secondary-source">
-                <strong>Secondary:</strong> {dataSourceInfo.secondarySource}
-              </div>
-            )}
-            <div className="source-recommendation">
-              {dataSourceInfo.recommendation}
-            </div>
-            {locationContext?.isIndianTerritory && (
-              <div className="indian-enhancements">
-                <div className="seismic-zone">
-                  <strong>Seismic Zone:</strong> {locationContext.seismicZone} 
-                  ({locationContext.zoneIntensity} Risk)
-                </div>
-                {locationContext.nearbyFaults.length > 0 && (
-                  <div className="nearby-faults">
-                    <strong>Nearby Faults:</strong> {locationContext.nearbyFaults.length} within 300km
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
-        </div>
-      )}
-
       <div className="page-header">
         <h1 className="page-title">Earthquake Risk Assessment</h1>
         <p className="page-subtitle">
           Real-time seismic activity analysis and prediction system
-          {earthquakeStats?.dataSource && (
-            <span className="data-badge"> • {earthquakeStats.dataSource}</span>
-          )}
         </p>
       </div>
 
@@ -237,34 +170,15 @@ const HomePage = ({ location }) => {
             <RiskMeter 
               probability24h={typeof predictions?.probability24h === 'number' ? predictions.probability24h : 0}
               predictedMagnitude={typeof predictions?.predictedMagnitude === 'number' ? predictions.predictedMagnitude : 0}
-              confidence={typeof predictions?.confidence === 'number' ? predictions.confidence : 0}
+              confidence={typeof predictions?.confidence_score === 'number' ? predictions.confidence_score * 100 : 0}
               size={200}
             />
           </div>
           <div className="risk-details">
             <h2>Advanced Earthquake Prediction Analysis</h2>
             <p className="risk-description">
-              {predictions?.success && typeof predictions.probability24h === 'number' ? 
-                `${predictions.probability24h.toFixed(2)}% probability of earthquake activity in next 24 hours (Confidence: ${((predictions.confidence_score || 0) * 100).toFixed(1)}%)` :
-                'Prediction data unavailable - using historical analysis'
-              }
             </p>
-             <div className="metric">
-                <span className="metric-label">24-Hour Probability</span>
-                <span className="metric-value">
-                  {predictions?.probability24h && typeof predictions.probability24h === 'number' ? 
-                    `${predictions.probability24h.toFixed(3)}%` : 
-                    predictions?.probability24h === "No data available" ? "No data available" : 'N/A'}
-                </span>
-              </div>
-              {predictions?.success && typeof predictions.predictedMagnitude === 'number' && (
-                <div className="metric">
-                  <span className="metric-label">Predicted Magnitude</span>
-                  <span className="metric-value">
-                    M{predictions.predictedMagnitude.toFixed(2)}
-                  </span>
-                </div>
-              )}
+                           
               {predictions?.seismological_factors && (
                 <div className="seismological-factors">
                   <h4>Seismological Analysis Factors:</h4>
@@ -366,7 +280,7 @@ const HomePage = ({ location }) => {
       {/* Recent Earthquakes - Full Width */}
       <div className="recent-earthquakes-full-width">
         <div className="recent-earthquakes-header">
-          <h3>Recent Earthquakes (Within 500km)</h3>
+          <h3>Recent 10 Earthquakes (Within 500km)</h3>
           {locationContext?.isIndianTerritory && (
             <p className="indian-note">
               Enhanced with Indian seismic zone data and fault analysis
@@ -374,7 +288,7 @@ const HomePage = ({ location }) => {
           )}
         </div>
         <RecentEarthquakesList 
-          earthquakes={recentEarthquakes}
+          earthquakes={recentEarthquakes.slice(0, 10)}
           userLocation={location}
           fullWidth={true}
         />
