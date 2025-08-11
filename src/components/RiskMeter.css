@@ -1,0 +1,141 @@
+.risk-meter {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1rem;
+}
+
+.risk-meter-svg {
+  transform: scaleY(-1);
+}
+
+.risk-meter-bg {
+  opacity: 0.2;
+}
+
+.risk-meter-progress {
+  transition: stroke-dashoffset 1s ease-in-out, stroke 0.3s ease;
+  filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.2));
+}
+
+.risk-meter-marker {
+  opacity: 0.6;
+}
+
+.risk-meter-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+}
+
+.probability-score {
+  font-size: 2.2rem;
+  font-weight: 800;
+  line-height: 1;
+  font-family: 'Arial', sans-serif;
+}
+
+.probability-label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.magnitude-container {
+  margin: 0.1rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.1rem;
+}
+
+.predicted-magnitude {
+  font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 1;
+  font-family: 'Arial', sans-serif;
+}
+
+.magnitude-label {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.confidence-container {
+  margin: 0.1rem 0;
+}
+
+.confidence-score {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #888;
+  font-style: italic;
+}
+
+.risk-level {
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 0.1rem;
+}
+
+.risk-label {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+}
+
+/* Animation for the progress circle */
+@keyframes riskMeterFill {
+  from {
+    stroke-dashoffset: var(--circumference);
+  }
+  to {
+    stroke-dashoffset: var(--final-offset);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .risk-score {
+    font-size: 2rem;
+  }
+  
+  .risk-level {
+    font-size: 0.9rem;
+  }
+  
+  .risk-label {
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .risk-score {
+    font-size: 1.8rem;
+  }
+  
+  .risk-level {
+    font-size: 0.8rem;
+  }
+  
+  .risk-label {
+    font-size: 0.65rem;
+  }
+}

@@ -1,0 +1,165 @@
+/* Earth-toned color scheme for earthquake prediction app */
+:root {
+  /* Earth tone primary colors */
+  --earth-brown: #8B4513;
+  --earth-brown-light: #A0522D;
+  --earth-brown-dark: #654321;
+  
+  /* Geological grays */
+  --geo-gray: #696969;
+  --geo-gray-dark: #2F4F4F;
+  --geo-gray-light: #A9A9A9;
+  
+  /* Seismic accent colors */
+  --seismic-orange: #CD853F;
+  --seismic-red: #D2691E;
+  --seismic-yellow: #DAA520;
+  
+  /* Status colors */
+  --forest-green: #228B22;
+  --forest-green-dark: #006400;
+  --amber-warning: #FFA500;
+  --amber-warning-light: #FFD700;
+  
+  /* Background and text */
+  --bg-primary: #F5F5DC; /* Beige */
+  --bg-secondary: #FAEBD7; /* Antique white */
+  --text-primary: #2F4F4F;
+  --text-secondary: #696969;
+  --text-light: #A9A9A9;
+  
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+  
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+}
+
+#root {
+  min-height: 100vh;
+  width: 100%;
+}
+
+a {
+  font-weight: 500;
+  color: var(--earth-brown);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--seismic-orange);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--earth-brown-dark);
+  font-weight: 600;
+}
+
+button {
+  border-radius: 8px;
+  border: 2px solid var(--earth-brown);
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: var(--earth-brown);
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background-color: var(--earth-brown-light);
+  border-color: var(--earth-brown-light);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(139, 69, 19, 0.3);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+button.secondary {
+  background-color: transparent;
+  color: var(--earth-brown);
+}
+
+button.secondary:hover {
+  background-color: var(--earth-brown);
+  color: white;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 20px rgba(139, 69, 19, 0.1);
+  border: 1px solid rgba(139, 69, 19, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.error {
+  color: var(--seismic-red);
+  background-color: rgba(210, 105, 30, 0.1);
+  border: 1px solid var(--seismic-red);
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+.success {
+  color: var(--forest-green-dark);
+  background-color: rgba(34, 139, 34, 0.1);
+  border: 1px solid var(--forest-green);
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+.warning {
+  color: var(--amber-warning);
+  background-color: rgba(255, 165, 0, 0.1);
+  border: 1px solid var(--amber-warning);
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .card {
+    padding: 1rem;
+    margin: 0.5rem;
+  }
+  
+  button {
+    padding: 0.8em 1em;
+    font-size: 0.9em;
+  }
+}
