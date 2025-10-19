@@ -1,0 +1,667 @@
+.stress-analysis-page {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Real Data Disclaimer */
+.real-data-disclaimer {
+  margin-bottom: 2rem;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e8f5e8 100%);
+  border-left: 4px solid #28a745;
+}
+
+.disclaimer-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #d4e6d4;
+}
+
+.disclaimer-icon {
+  color: #28a745;
+  width: 20px;
+  height: 20px;
+}
+
+.disclaimer-header h3 {
+  color: #155724;
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.disclaimer-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.data-sources h4,
+.analysis-methods h4,
+.important-notes h4 {
+  color: #155724;
+  margin: 0 0 0.5rem 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+/* Real-Time Stress Analysis Styles */
+.real-time-stress-analysis {
+  margin: 20px 0;
+  background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+  border-left: 4px solid #ffc107;
+}
+
+.stress-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.stress-header h3 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  color: #856404;
+  font-size: 1.2rem;
+}
+
+.stress-icon {
+  width: 24px;
+  height: 24px;
+  color: #ffc107;
+}
+
+.stress-level-badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  color: white;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.stress-content {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.stress-metrics {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.metric {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.metric-label {
+  font-size: 0.85rem;
+  color: #6c757d;
+  font-weight: 500;
+}
+
+.metric-value {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #856404;
+}
+
+.recommendations h4 {
+  margin: 0 0 10px;
+  color: #856404;
+  font-size: 1rem;
+}
+
+.recommendations ul {
+  margin: 0;
+  padding-left: 20px;
+  color: #6c4300;
+}
+
+.recommendations li {
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+/* Selected Earthquake Details */
+.selected-earthquake-details {
+  margin: 20px 0;
+  background: linear-gradient(135deg, #e7f3ff 0%, #cce7ff 100%);
+  border-left: 4px solid #007bff;
+}
+
+.earthquake-detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.earthquake-detail-header h3 {
+  margin: 0;
+  color: #004085;
+  font-size: 1.2rem;
+}
+
+.close-button {
+  background: #dc3545;
+  color: white;
+  border: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
+.close-button:hover {
+  background: #c82333;
+}
+
+.earthquake-detail-content {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #bee5eb;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.detail-label {
+  font-size: 0.85rem;
+  color: #6c757d;
+  font-weight: 500;
+}
+
+.detail-value {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #004085;
+}
+
+.magnitude-large {
+  font-size: 1.3rem;
+  color: #dc3545;
+}
+
+.data-sources ul,
+.analysis-methods ul,
+.important-notes ul {
+  margin: 0;
+  padding-left: 1.2rem;
+  color: #495057;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.data-sources li,
+.analysis-methods li,
+.important-notes li {
+  margin-bottom: 0.3rem;
+}
+
+.data-sources strong,
+.analysis-methods strong,
+.important-notes strong {
+  color: #2c5530;
+  font-weight: 600;
+}
+
+/* Analysis Controls */
+.analysis-controls {
+  margin-bottom: 2rem;
+}
+
+.controls-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.control-group label {
+  font-weight: 600;
+  color: var(--earth-brown-dark);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.station-select,
+.time-select {
+  padding: 0.75rem;
+  border: 2px solid var(--earth-brown);
+  border-radius: 8px;
+  background: white;
+  color: var(--text-primary);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.station-select:focus,
+.time-select:focus {
+  outline: none;
+  border-color: var(--seismic-orange);
+  box-shadow: 0 0 0 3px rgba(205, 133, 63, 0.2);
+}
+
+.station-info {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  padding: 1rem;
+  background: rgba(139, 69, 19, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(139, 69, 19, 0.1);
+}
+
+.station-detail {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.detail-icon {
+  width: 1rem;
+  height: 1rem;
+  color: var(--earth-brown);
+}
+
+/* Stress Overview */
+.stress-overview {
+  margin-bottom: 3rem;
+}
+
+.overview-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.overview-icon {
+  width: 2rem;
+  height: 2rem;
+  color: var(--earth-brown);
+}
+
+.overview-header h3 {
+  color: var(--earth-brown-dark);
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.stress-level-display {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.stress-meter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.stress-indicator {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.stress-score {
+  background: white;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.score-value {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--earth-brown-dark);
+  line-height: 1;
+}
+
+.score-label {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 0.25rem;
+}
+
+.stress-details h4 {
+  color: var(--earth-brown-dark);
+  margin-bottom: 1.5rem;
+  font-size: 1.3rem;
+}
+
+.stress-indicators {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.indicator-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 8px;
+  border: 1px solid rgba(139, 69, 19, 0.1);
+}
+
+.indicator-name {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  text-transform: capitalize;
+}
+
+.indicator-value {
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.indicator-value.low { background: rgba(34, 139, 34, 0.2); color: #006400; }
+.indicator-value.medium { background: rgba(218, 165, 32, 0.2); color: #B8860B; }
+.indicator-value.high { background: rgba(255, 165, 0, 0.2); color: #FF8C00; }
+.indicator-value.critical { background: rgba(220, 20, 60, 0.2); color: #DC143C; }
+.indicator-value.increasing { background: rgba(255, 69, 0, 0.2); color: #FF4500; }
+.indicator-value.decreasing { background: rgba(34, 139, 34, 0.2); color: #006400; }
+.indicator-value.stable { background: rgba(105, 105, 105, 0.2); color: #696969; }
+
+/* Charts Section */
+.charts-section {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.chart-container {
+  padding: 1.5rem;
+}
+
+.chart-container h3 {
+  color: var(--earth-brown-dark);
+  margin-bottom: 1.5rem;
+  font-size: 1.3rem;
+}
+
+.stress-tooltip {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid var(--earth-brown);
+  border-radius: 8px;
+  padding: 0.75rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(5px);
+}
+
+.tooltip-label {
+  color: var(--earth-brown-dark);
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  font-size: 0.9rem;
+}
+
+.tooltip-value {
+  color: var(--text-primary);
+  margin: 0.25rem 0;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Analysis Summary */
+.analysis-summary {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.statistics-card,
+.recommendations-card {
+  padding: 1.5rem;
+}
+
+.statistics-card h3,
+.recommendations-card h3 {
+  color: var(--earth-brown-dark);
+  margin-bottom: 1.5rem;
+  font-size: 1.3rem;
+}
+
+.stats-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 12px;
+  border: 1px solid rgba(139, 69, 19, 0.1);
+}
+
+.stat-icon {
+  width: 2rem;
+  height: 2rem;
+  color: var(--earth-brown);
+  flex-shrink: 0;
+}
+
+.stat-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stat-value {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--earth-brown-dark);
+}
+
+.recommendations-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.recommendation-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: rgba(255, 165, 0, 0.1);
+  border: 1px solid var(--amber-warning);
+  border-radius: 12px;
+  border-left: 4px solid var(--amber-warning);
+}
+
+.recommendation-icon {
+  width: 1.2rem;
+  height: 1.2rem;
+  color: var(--amber-warning);
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.recommendation-item span {
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.data-disclaimer {
+  padding: 1rem;
+  background: rgba(105, 105, 105, 0.1);
+  border: 1px solid var(--geo-gray);
+  border-radius: 8px;
+}
+
+.data-disclaimer p {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  line-height: 1.4;
+  font-style: italic;
+}
+
+/* No Data */
+.no-data {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.no-data-icon {
+  width: 4rem;
+  height: 4rem;
+  color: var(--text-light);
+  margin: 0 auto 1.5rem;
+}
+
+.no-data h3 {
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
+.no-data p {
+  color: var(--text-light);
+  max-width: 500px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .stress-analysis-page {
+    padding: 1rem;
+  }
+
+  .controls-section {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .station-info {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .stress-level-display {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    text-align: center;
+  }
+
+  .stress-indicators {
+    grid-template-columns: 1fr;
+  }
+
+  .charts-section {
+    gap: 1.5rem;
+  }
+
+  .analysis-summary {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .stats-grid {
+    gap: 0.75rem;
+  }
+
+  .stat-item {
+    padding: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .stress-indicator {
+    width: 150px;
+    height: 150px;
+  }
+
+  .stress-score {
+    width: 100px;
+    height: 100px;
+  }
+
+  .score-value {
+    font-size: 2rem;
+  }
+
+  .indicator-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .recommendation-item {
+    padding: 0.75rem;
+  }
+}
